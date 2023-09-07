@@ -6,7 +6,7 @@ import (
 )
 
 type MqttConfigManage struct {
-	lockObj         sync.RWMutex
+	lockObj         *sync.RWMutex
 	mqttConfigGroup map[string]*MqttConfig
 }
 
@@ -35,6 +35,7 @@ func (m MqttConfigManage) GetAll() map[string]*MqttConfig {
 
 func NewMqttConfigManage() *MqttConfigManage {
 	ret := &MqttConfigManage{
+		lockObj:         new(sync.RWMutex),
 		mqttConfigGroup: make(map[string]*MqttConfig),
 	}
 	return ret
